@@ -2,11 +2,13 @@
 
 	Kanryu_SMN.lua
 	
-	4/11/2023
+	6/8/2023
 	
 	Kanryu of Ragnarok
 	
 	LAC Build for Horizon - Requires LACv1.52(2/18/23)
+	
+	Updated to fix misc character being included in petAction().name. Tyvm Aramil from LetItBurn discord. 
 
 ]]
 
@@ -31,7 +33,7 @@ local pacts = {
 };
 
 local sets = {
-    Idle = {
+    Idle_Priority = {
         Main = 'Kukulcan\'s Staff',
         Sub = '',
         Ammo = '',
@@ -39,11 +41,11 @@ local sets = {
         Neck = '',
         Ear1 = 'Cunning Earring',
         Ear2 = '',
-        Body = 'Evoker\'s Doublet',
-        Hands = 'Evoker\'s Bracers',
+        Body = {'Yinyang Robe','Evoker\'s Doublet','Seer\'s Tunic',},
+        Hands = {'Summoner\'s Brcr.','Evoker\'s Bracers',},
         Ring1 = 'Evoker\'s Ring',
         Ring2 = 'Eremite\'s Ring +1',
-        Back = 'Black Cape +1',
+        Back = {'Summoner\'s Cape','Black Cape +1',},
         Waist = 'Hierarch Belt',
         Legs = 'Evoker\'s Spats',
         Feet = 'Evoker\'s Pigaches',
@@ -53,7 +55,8 @@ local sets = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',		
 		Ear2 = 'Beastly Earring',
-		Body = 'Austere Robe',
+		Body = {'Yinyang Robe','Austere Robe',},
+		Hands = {'Summoner\'s Bracers','Evoker\'s Bracers',},
 		Ring1 = 'Evoker\'s Ring',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',
@@ -71,7 +74,7 @@ local sets = {
     },
 	
     Pet_TP_Priority = {
-		Head = {'Evoker\'s Horn','Shep. Bonnet',},
+		Head = 'Shep. Bonnet',
 		Neck = 'Smn. Torque',
 		Ear2 = 'Beastly Earring',		
 		Body = 'Austere Robe',		
@@ -80,7 +83,11 @@ local sets = {
     },
 
     Precast = {
+		
+    },
 	
+	Avacast = {
+		Feet = 'Evoker\'s Boots',
     },
 
     Cure = {
@@ -113,7 +120,8 @@ local sets = {
 		
     BPDown = {
 		Head = "Austere Hat",
-		Body = 'Austere Robe',
+		Body = {'Yinyang Robe','Austere Robe',},
+		Hands = 'Summoner\'s Brcr.',
     },
     
 	Siphon = {
@@ -124,6 +132,7 @@ local sets = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
 		Ear2 = 'Beastly Earring',
+		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',	
     },
@@ -131,13 +140,16 @@ local sets = {
 	PetMagic_Priority = {
         Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
+		Ear2 = 'Stealth Earring',
+		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',	
     },
 	
 	PetWard = {
-		Head = "Austere Hat",
+		Head = {'Evoker\'s Horn','Austere Hat',},
 		Neck = 'Smn. Torque',
+		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',
 	},
@@ -149,6 +161,7 @@ local sets = {
 	PetMAcc_Priority = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
+		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',
     },
@@ -157,6 +170,7 @@ local sets = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
 		Ear2 = 'Beastly Earring',
+		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',
     },
@@ -203,15 +217,16 @@ profile.Sets = sets;
 profile.Packer = {};
 
 local function HandlePetAction(PetAction)
-	if (pacts.Skill:contains(PetAction.Name)) then
+	local BPName = string.sub(PetAction.Name,1,string.len(PetAction.Name)-1);
+	if (pacts.Skill:contains(BPName)) then
         gFunc.EquipSet(sets.PetWard);
-	elseif (pacts.Magic:contains(PetAction.Name)) then
+	elseif (pacts.Magic:contains(BPName)) then
         gFunc.EquipSet(sets.PetMagic);
-    elseif (pacts.Hybrid:contains(PetAction.Name)) then
+    elseif (pacts.Hybrid:contains(BPName)) then
         gFunc.EquipSet(sets.PetHybrid);
-	elseif (pacts.Heal:contains(PetAction.Name)) then
+	elseif (pacts.Heal:contains(BPName)) then
         gFunc.EquipSet(sets.PetHealing);
-    elseif (pacts.MAcc:contains(PetAction.Name)) then
+    elseif (pacts.MAcc:contains(BPName)) then
         gFunc.EquipSet(sets.PetMAcc);
     else
         gFunc.EquipSet(sets.PetPhys);
@@ -234,6 +249,7 @@ profile.HandleDefault = function()
     local player = gData.GetPlayer();
 	local pet = gData.GetPet();
 	local petAction = gData.GetPetAction();
+	local zone = gData.GetEnvironment()	
 	
 	local myLevel = player.MainJobSync;
     if (myLevel ~= Settings.CurrentLevel) then
@@ -250,12 +266,18 @@ profile.HandleDefault = function()
         gFunc.EquipSet(sets.TP);
     elseif pet ~= nil and pet.Status == 'Engaged' then
         gFunc.EquipSet(sets.Pet_TP);
-		gFunc.Equip('main', staves[summons[pet.Name]]);
+		gFunc.Equip('main', staves[summons[pet.Name]])
 	elseif pet ~= nil and pet.Status == 'Idle' then
-        gFunc.EquipSet(sets.Pet_Idle);
-		gFunc.Equip('main', staves[summons[pet.Name]]);
+        gFunc.EquipSet(sets.Pet_Idle)
+		gFunc.Equip('main', staves[summons[pet.Name]])
 		if pet.Name == 'Carbuncle' then
-			gFunc.Equip('hands', 'Carbuncle Mitts');
+			gFunc.Equip('hands', 'Carbuncle Mitts')
+		end
+		if zone.Day == summons[pet.Name] then
+			gFunc.Equip('body', 'Summoner\'s Dblt.')
+		end
+		if zone.Weather == summons[pet.Name] then
+			--gFunc.Equip('head', 'Summoner\'s Horn')
 		end
     elseif (player.Status == 'Resting') then
         gFunc.EquipSet(sets.Resting);
@@ -297,7 +319,11 @@ end
 profile.HandlePrecast = function()
     local spell = gData.GetAction();
     
-	gFunc.EquipSet(sets.Precast);
+	if spell.Skill == 'Summoning' then
+		gFunc.EquipSet(gFunc.Combine(sets.Precast,sets.Avacast))
+	else
+		gFunc.EquipSet(sets.Precast)
+	end
 	
 end
 
@@ -305,7 +331,13 @@ profile.HandleMidcast = function()
     local spell = gData.GetAction();
 	local target = gData.GetActionTarget();
     local me = gData.GetPlayer().Name
-
+	local petAction = gData.GetPetAction();
+	
+	if (petAction ~= nil) then
+        HandlePetAction(petAction);
+        return;
+    end
+	
     if spell.Skill == 'Enhancing Magic' then
 		if string.match(spell.Name, 'Sneak') and (target.Name == me) then
 		    gFunc.EquipSet(sets.Sneak);
@@ -320,7 +352,7 @@ profile.HandleMidcast = function()
         end
 	elseif spell.Skill == 'Elemental Magic' then
         gFunc.EquipSet(sets.Nuke);
-    elseif spell.Skill == 'Summoning Magic' then
+    elseif spell.Skill == 'Summoning' then
         gFunc.EquipSet(sets.SIRD);		
     elseif spell.Skill == 'Dark Magic' then
         gFunc.EquipSet(sets.Drain);
