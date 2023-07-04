@@ -37,6 +37,10 @@ local sets = {
 		Feet = 'Strider Boots',
     },
 	
+	MP_Body = {
+		Body = {'Flora Cotehardie'},
+	},
+	
 	Resting = {
 	
 	},
@@ -227,6 +231,7 @@ profile.OnUnload = function()
 end
 
 profile.HandleCommand = function(args)
+	--Accuracy Toggle Setup--
 	if (args[1] == 'acc') then
 		if (Settings.AccToggle == false) then
 			gFunc.Echo(158, "Accuracy based TP enabled. Max Acc TP set prioritized.")
@@ -234,6 +239,28 @@ profile.HandleCommand = function(args)
 		else
 			gFunc.Echo(158, "Standard TP restored.")
 			Settings.AccToggle = false;
+		end
+	end
+	
+	--Treasure Hunter Toggle Setup--
+	if (args[1] == 'th') then
+		if (Settings.THToggle == false) then
+			gFunc.Echo(158, "Treasure Hunter is now prioritized. Equipped at all times.")
+			Settings.THToggle = true;
+		else
+			gFunc.Echo(158, "Standard TH behavior restored.")
+			Settings.THToggle = false;
+		end
+	end
+	
+	--Refresh Body Toggle Setup--
+	if (args[1] == 'mp') then
+		if (Settings.MPBodyToggle == false) then
+			gFunc.Echo(158, "MP Body equipped. Refreshing mp up to body conversion.")
+			Settings.MPBodyToggle = true;
+		else
+			gFunc.Echo(158, "Standard Idle restored.")
+			Settings.MPBodyToggle = false;
 		end
 	end
 end
@@ -256,7 +283,7 @@ profile.HandleDefault = function()
 			gFunc.EquipSet(gFunc.Combine(sets.TP,sets.TP_TA))
 		elseif sa >= 1 then
 			gFunc.EquipSet(gFunc.Combine(sets.TP,sets.TP_SA))
-		elseif AccToggle then
+		elseif Settings.AccToggle then
 			gFunc.EquipSet(sets.TA_Accuracy)
 		else
 			gFunc.EquipSet(sets.TP)
@@ -264,7 +291,11 @@ profile.HandleDefault = function()
     elseif (player.Status == 'Resting') then
         gFunc.EquipSet(sets.Resting)
     else
-		gFunc.EquipSet(sets.Idle)
+		if Settings.MPBodyToggle then
+			gFunc.EquipSet(gFunc.Combine(sets.Idle, sets.MP_Body)
+		else
+			gFunc.EquipSet(sets.Idle)
+		end
     end
 	
 	if (Settings.THToggle == true) then
