@@ -1,8 +1,8 @@
 --[[
 
-	Kanryu_SMN.lua
+	Kanryu_DRG.lua
 	
-	4/11/2023
+	6/17/2023
 	
 	Kanryu of Ragnarok
 	
@@ -16,17 +16,9 @@ local Settings = {
     CurrentLevel = 0,
 }
 
-local ninjutsu = {
-
-	Nukes = T{'Doton: Ichi', 'Doton: Ni', 'Doton: San', 'Suiton: Ichi', 'Suiton: Ni', 'Suiton: San', 'Huton: Ichi', 'Huton: Ni', 'Huton: San', 'Katon: Ichi', 'Katon: Ni', 'Katon: San', 'Hyoton: Ichi', 'Hyoton: Ni', 'Hyoton: San', 'Raiton: Ichi', 'Raiton: Ni', 'Raiton: San'};
-
-	Enfeebs = T{'Kurayami: Ichi', 'Kurayami: Ni', 'Hojo: Ichi', 'Hojo: Ni', 'Dokumori: Ichi', 'Jubaku: Ichi'};
-
-};
-
 local sets = {
     Idle_Priority = {
-        Main = '',
+        Main = {'','',},
         Sub = '',
         Ammo = '',
         Head = '',
@@ -34,8 +26,8 @@ local sets = {
         Ear2 = '',
         Body = '',
         Hands = '',
-        Ring1 = 'Balance Ring',
-        Ring2 = 'Balance Ring',
+        Ring1 = '',
+        Ring2 = '',
         Back = '',
         Waist = '',
         Legs = '',
@@ -55,8 +47,8 @@ local sets = {
         Ear2 = '',
         Body = '',
         Hands = '',
-        Ring1 = 'Balance Ring',
-        Ring2 = 'Balance Ring',
+        Ring1 = '',
+        Ring2 = '',
         Back = '',
         Waist = '',
         Legs = '',
@@ -64,19 +56,6 @@ local sets = {
     },
 	
 	WS_Priority = {
-		Ring1 = 'Courage Ring',
-        Ring2 = 'Courage Ring',
-	},
-	
-	Enmity_Priority = {
-	
-	},
-	
-    Precast_Priority = {
-	
-    },
-	
-	Nuke_Priority = {
 		Main = '',
         Sub = '',
         Ammo = '',
@@ -85,17 +64,57 @@ local sets = {
         Ear2 = '',
         Body = '',
         Hands = '',
-        Ring1 = 'Eremite\'s Ring +1',
-        Ring2 = 'Eremite\'s Ring +1',
+        Ring1 = '',
+        Ring2 = '',
         Back = '',
         Waist = '',
         Legs = '',
         Feet = '',
 	},
 	
-	MAcc_Priority = {
+	Wheeling_Priority = {
 	
-	}
+	},
+	
+	Impulse_Priority = {
+	
+	},
+	
+	CallWyvern_Priority = {
+	
+	},
+	
+	AncientCircle_Priority = {
+	
+	},
+	
+    Jump_Priority = {
+	
+	},
+	
+	HighJump_Priority = {
+	
+	},
+	
+    SpiritLink_Priority = {
+	
+	},    
+	
+    SteadyWing_Priority = {
+	
+	},
+	
+    Angon_Priority = {
+	
+	},
+	
+	HealingBreath_Priority = {
+	
+	},
+	
+	Precast_Priority = {
+	
+	},
 
     SIRD = {
 	
@@ -115,20 +134,15 @@ local sets = {
 	
 };
 
-local staves = {
-    ['Fire'] = 'Vulcan\'s Staff',
-    ['Earth'] = 'Earth Staff',
-    ['Water'] = 'Water Staff',
-    ['Wind'] = 'Wind Staff',
-    ['Ice'] = 'Ice Staff',
-    ['Thunder'] = 'Thunder Staff',
-    ['Light'] = 'Light Staff',
-    ['Dark'] = 'Dark Staff'
-};
-
 profile.Sets = sets;
 
-profile.Packer = {};
+local function HandlePetAction(PetAction)
+	local name = string.sub(PetAction.Name,1,string.len(PetAction.Name)-1);
+	
+	if string.match(spell.Name, 'Healing Breath') then
+        gFunc.EquipSet(sets.HealingBreath);
+    end
+end
 
 profile.OnLoad = function()
 	gSettings.AllowAddSet = true;
@@ -144,6 +158,8 @@ end
 
 profile.HandleDefault = function()
 	local player = gData.GetPlayer();
+	local pet = gData.GetPet();
+	local petAction = gData.GetPetAction();
 	
 	--Level Sync handler
 	local myLevel = player.MainJobSync;
@@ -151,6 +167,12 @@ profile.HandleDefault = function()
         gFunc.EvaluateLevels(sets, myLevel);
         Settings.CurrentLevel = myLevel;
     end	
+	
+	--Pet Action Handler
+	if (petAction ~= nil) then
+        HandlePetAction(petAction);
+        return;
+    end
 	
 	--Standard Gear change setups
     if player.Status == 'Engaged' then
@@ -170,10 +192,20 @@ end
 profile.HandleAbility = function()
 	local ability = gData.GetAction();
 
-    gFunc.EquipSet(sets.BPDown);
-
-    if (ability.Name == 'Provoke') then
-        gFunc.EquipSet(sets.Enmity);
+    if (ability.Name == 'Call Wyvern') then
+        gFunc.EquipSet(sets.CallWyvern);
+	elseif (ability.Name == 'Ancient Circle') then
+        gFunc.EquipSet(sets.AncientCircle);
+	elseif (ability.Name == 'Jump') then
+        gFunc.EquipSet(sets.Jump);
+	elseif (ability.Name == 'Spirit Link') then
+        gFunc.EquipSet(sets.SpiritLink);
+	elseif (ability.Name == 'High Jump') then
+        gFunc.EquipSet(sets.HighJump);
+	elseif (ability.Name == 'Steady Wing') then
+        gFunc.EquipSet(sets.SteadyWing);
+	elseif (ability.Name == 'Angon') then
+        gFunc.EquipSet(sets.Angon);
     end
 	
 end
@@ -201,27 +233,21 @@ profile.HandleMidcast = function()
     local me = gData.GetPlayer().Name
 
     if spell.Skill == 'Ninjutsu' then
-		if string.find(spell.Name, 'Monomi') then
-            gFunc.EquipSet(sets.Sneak);
-		elseif string.find(spell.Name, 'Tonko') then
-            gFunc.EquipSet(sets.Invisible);
-		elseif string.find(spell.Name, 'Doton') then
-			gFunc.EquipSet(sets.Nuke);
-		elseif string.find(spell.Name, 'Suiton') then
-			gFunc.EquipSet(sets.Nuke);
-		elseif string.find(spell.Name, 'Huton') then
-			gFunc.EquipSet(sets.Nuke);
-		elseif string.find(spell.Name, 'Katon') then
-			gFunc.EquipSet(sets.Nuke);
-		elseif string.find(spell.Name, 'Hyoton') then
-			gFunc.EquipSet(sets.Nuke);
-		elseif string.find(spell.Name, 'Raiton') then
-			gFunc.EquipSet(sets.Nuke);		
+		if string.match(spell.Name, 'Monomi: Ichi') and (target.Name == me) then
+            gFunc.EquipSet(sets.Sneak)
+		elseif string.match(spell.Name, 'Tonko: Ichi') and (target.Name == me) then
+            gFunc.EquipSet(sets.Invisible)
+		else
+			gFunc.EquipSet(sets.Idle)
         end
-    elseif spell.Skill == 'Elemental Magic' then
-        gFunc.EquipSet(sets.Nuke);
+	elseif spell.Skill == 'Enhancing Magic' then
+		if string.match(spell.Name, 'Sneak') and (target.Name == me) then
+		    gFunc.EquipSet(sets.Sneak);
+		elseif string.match(spell.Name, 'Invisible') and (target.Name == me) then
+            gFunc.EquipSet(sets.Invisible);
+        end
 	else
-		gFunc.EquipSet(sets.SIRD);
+		gFunc.EquipSet(sets.SIRD)
     end
 	
 end
@@ -237,7 +263,13 @@ end
 profile.HandleWeaponskill = function()
 	local ws = gData.GetAction();
     
-    gFunc.EquipSet(sets.WS)
+    if (ws.Name == "Wheeling Thrust") then
+		gFunc.EquipSet(sets.Wheeling)
+	elseif (ws.Name == "Impulse Drive") then
+		gFunc.EquipSet(sets.Impulse)
+	else
+		gFunc.EquipSet(sets.WS)
+	end
 	
 end
 

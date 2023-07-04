@@ -242,7 +242,7 @@ profile.HandleMidcast = function()
         gFunc.EquipSet(sets.Drain)
 		gFunc.Equip('main', staves[spell.Element])
 		--Dark Obi does apply to Drain/Aspir
-		if ObiCheck(spell) >= 1 then
+		if ObiCheck(spell) >= 1 and (string.find(spell.Name, 'Drain') or string.find(spell.Name, 'Aspir')) then
 			gFunc.Equip('waist', obis[spell.Element])
 		end
 	
@@ -284,6 +284,10 @@ function ObiCheck(spell)
 	local element = spell.Element
 	local zone = gData.GetEnvironment()
 	
+	if element == 'Thunder' then
+		element = 'Lightning'
+	end
+	
 	local badEle = {
 		['Fire'] = 'Water',
 		['Earth'] = 'Wind',
@@ -298,22 +302,22 @@ function ObiCheck(spell)
 	local weight = 0
 	
 	--Day comparison
-	if string.find(zone.Day, spell.Element) then
+	if string.find(zone.Day, element) then
 		weight = weight + 1
-	elseif string.find(zone.Day, badEle[spell.Element]) then
+	elseif string.find(zone.Day, badEle[element]) then
 		weight = weight - 1
 	end
 	
 	--Weather comparison
 	if string.find(zone.Weather, spell.Element) then
 		if string.find(zone.Weather, 'x2') then
-			weight = weight + 2
+			weight = weight + 2.5
 		else
 			weight = weight + 1
 		end
 	elseif string.find(zone.Weather, badEle[spell.Element]) then
 		if string.find(zone.Weather, 'x2') then
-			weight = weight - 2
+			weight = weight - 2.5
 		else
 			weight = weight - 1
 		end
