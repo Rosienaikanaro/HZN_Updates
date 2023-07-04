@@ -37,18 +37,18 @@ local sets = {
         Main = 'Kukulcan\'s Staff',
         Sub = '',
         Ammo = '',
-        Head = 'Evoker\'s Horn',
-        Neck = '',
-        Ear1 = 'Cunning Earring',
-        Ear2 = '',
+        Head = {'Summoner\'s Horn','Evoker\'s Horn',},
+        Neck = 'Smn. Torque',
+        Ear1 = 'Merman\'s Earring',
+        Ear2 = 'Beastly Earring',
         Body = {'Yinyang Robe','Evoker\'s Doublet','Seer\'s Tunic',},
         Hands = {'Summoner\'s Brcr.','Evoker\'s Bracers',},
         Ring1 = 'Evoker\'s Ring',
-        Ring2 = 'Eremite\'s Ring +1',
+        Ring2 = 'Mermans\'s Ring',
         Back = {'Summoner\'s Cape','Black Cape +1',},
         Waist = 'Hierarch Belt',
         Legs = 'Evoker\'s Spats',
-        Feet = 'Evoker\'s Pigaches',
+        Feet = {'Smn. Pigaches +1','Evoker\'s Pigaches',},
     },
 	
     Pet_Idle_Priority = {
@@ -59,7 +59,7 @@ local sets = {
 		Hands = {'Summoner\'s Bracers','Evoker\'s Bracers',},
 		Ring1 = 'Evoker\'s Ring',
 		Legs = 'Evoker\'s Spats',
-		Feet = 'Austere Sabots',
+		Feet = {'Smn. Pigaches +1','Evoker\'s Pigaches',},
     },
 	
 	Resting_Priority = {
@@ -70,16 +70,19 @@ local sets = {
 	},
 	
 	TP = {
-	
+		Neck = 'Peacock Amulet',
+		Ear1 = 'Merman\'s Earring',
+		Ring2 = 'Jaeger Ring',
+		Waist = 'Swift Belt',
     },
 	
     Pet_TP_Priority = {
 		Head = 'Shep. Bonnet',
-		Neck = 'Smn. Torque',
-		Ear2 = 'Beastly Earring',		
+		Ear2 = 'Beastly Earring',	
+		Hands = 'Summoner\'s Bracers',
 		Body = 'Austere Robe',		
-		Legs = 'Evoker\'s Spats',		
-		Feet = 'Austere Sabots',		
+		Legs = 'Evoker\'s Spats',
+		Feet = 'Smn. Pigaches +1',	
     },
 
     Precast = {
@@ -119,9 +122,10 @@ local sets = {
     },
 		
     BPDown = {
-		Head = "Austere Hat",
+		Head = {'Summoner\'s Horn',"Austere Hat",},
 		Body = {'Yinyang Robe','Austere Robe',},
 		Hands = 'Summoner\'s Brcr.',
+		Feet = 'Smn. Pigaches +1',
     },
     
 	Siphon = {
@@ -134,13 +138,12 @@ local sets = {
 		Ear2 = 'Beastly Earring',
 		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
-		Feet = 'Austere Sabots',	
+		Feet = {'Smn. Pigaches +1','Austere Sabots',},	
     },
 	
 	PetMagic_Priority = {
         Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
-		Ear2 = 'Stealth Earring',
 		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Austere Sabots',	
@@ -172,7 +175,7 @@ local sets = {
 		Ear2 = 'Beastly Earring',
 		Hands = 'Summoner\'s Brcr.',
 		Legs = 'Evoker\'s Spats',
-		Feet = 'Austere Sabots',
+		Feet = {'Smn. Pigaches +1','Austere Sabots',},	
     },
 	
 	Sneak = {
@@ -250,6 +253,7 @@ profile.HandleDefault = function()
 	local pet = gData.GetPet();
 	local petAction = gData.GetPetAction();
 	local zone = gData.GetEnvironment()	
+	local DotW = zone.Day
 	
 	local myLevel = player.MainJobSync;
     if (myLevel ~= Settings.CurrentLevel) then
@@ -262,22 +266,35 @@ profile.HandleDefault = function()
         return;
     end
 	
+	if DotW == 'Lightningday' then
+		DotW = 'Thunderday'
+	end
+	
     if player.Status == 'Engaged' then
-        gFunc.EquipSet(sets.TP);
+        gFunc.EquipSet(gFunc.Combine(sets.TP,sets.Pet_TP));
     elseif pet ~= nil and pet.Status == 'Engaged' then
         gFunc.EquipSet(sets.Pet_TP);
 		gFunc.Equip('main', staves[summons[pet.Name]])
+		if pet.Name == 'Carbuncle' then
+			gFunc.Equip('hands', 'Carbuncle Mitts')
+		end
+		if string.match(DotW, summons[pet.Name]) then
+			gFunc.Equip('body', 'Summoner\'s Dblt.')
+		end
+		if string.match(zone.Weather,summons[pet.Name]) then
+			gFunc.Equip('head', 'Summoner\'s Horn')
+		end
 	elseif pet ~= nil and pet.Status == 'Idle' then
         gFunc.EquipSet(sets.Pet_Idle)
 		gFunc.Equip('main', staves[summons[pet.Name]])
 		if pet.Name == 'Carbuncle' then
 			gFunc.Equip('hands', 'Carbuncle Mitts')
 		end
-		if zone.Day == summons[pet.Name] then
+		if string.match(DotW, summons[pet.Name]) then
 			gFunc.Equip('body', 'Summoner\'s Dblt.')
 		end
-		if zone.Weather == summons[pet.Name] then
-			--gFunc.Equip('head', 'Summoner\'s Horn')
+		if string.match(zone.Weather,summons[pet.Name]) then
+			gFunc.Equip('head', 'Summoner\'s Horn')
 		end
     elseif (player.Status == 'Resting') then
         gFunc.EquipSet(sets.Resting);
