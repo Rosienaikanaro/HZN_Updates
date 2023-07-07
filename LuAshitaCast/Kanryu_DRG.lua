@@ -139,7 +139,7 @@ profile.Sets = sets;
 local function HandlePetAction(PetAction)
 	local name = string.sub(PetAction.Name,1,string.len(PetAction.Name)-1);
 	
-	if string.match(spell.Name, 'Healing Breath') then
+	if string.match(name, 'Healing Breath') then
         gFunc.EquipSet(sets.HealingBreath);
     end
 end
