@@ -2,7 +2,7 @@
 
 	Kanryu_SMN.lua
 	
-	6/8/2023
+	7/10/2023
 	
 	Kanryu of Ragnarok
 	
@@ -37,7 +37,7 @@ local sets = {
         Main = 'Kukulcan\'s Staff',
         Sub = '',
         Ammo = '',
-        Head = {'Summoner\'s Horn','Evoker\'s Horn',},
+        Head = {'Summoner\'s Horn','Evoker\'s Horn','Shep. Bonnet',},
         Neck = 'Smn. Torque',
         Ear1 = 'Merman\'s Earring',
         Ear2 = 'Beastly Earring',
@@ -52,7 +52,7 @@ local sets = {
     },
 	
     Pet_Idle_Priority = {
-		Head = {'Evoker\'s Horn','Shep. Bonnet',},
+		Head = {'Summoner\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',		
 		Ear2 = 'Beastly Earring',
 		Body = {'Yinyang Robe','Austere Robe',},
@@ -79,8 +79,8 @@ local sets = {
     Pet_TP_Priority = {
 		Head = 'Shep. Bonnet',
 		Ear2 = 'Beastly Earring',	
+		Body = {'Yinyang Robe','Austere Robe',},
 		Hands = 'Summoner\'s Bracers',
-		Body = 'Austere Robe',		
 		Legs = 'Evoker\'s Spats',
 		Feet = 'Smn. Pigaches +1',	
     },
@@ -204,13 +204,21 @@ local staves = {
 };
 
 local summons = {
+	['LightSpirit'] = 'Light',
 	['Carbuncle'] = 'Light',
+	['DarkSpirit'] = 'Dark',
 	['Fenrir'] = 'Dark',
+	['FireSpirit'] = 'Fire',
 	['Ifrit'] = 'Fire',
+	['EarthSpirit'] = 'Earth',
 	['Titan'] = 'Earth',
+	['WaterSpirit'] = 'Water',
 	['Leviathan'] = 'Water',
+	['AirSpirit'] = 'Wind',
 	['Garuda'] = 'Wind',
+	['IceSpirit'] = 'Ice',
 	['Shiva'] = 'Ice',
+	['ThunderSpirit'] = 'Thunder',
 	['Ramuh'] = 'Thunder',
 	['Diabolos'] = 'Dark',
 };
@@ -259,7 +267,7 @@ profile.HandleDefault = function()
     if (myLevel ~= Settings.CurrentLevel) then
         gFunc.EvaluateLevels(sets, myLevel);
         Settings.CurrentLevel = myLevel;
-    end	
+    end
     
 	if (petAction ~= nil) then
         HandlePetAction(petAction);
