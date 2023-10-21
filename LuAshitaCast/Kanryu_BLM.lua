@@ -70,7 +70,7 @@ local sets = {
 		--Neck = 'Uggalepih Pendant',
 	},
 	
-	EleDoTs = {
+	DoTs = {
 	
 	},
 	
@@ -207,7 +207,7 @@ profile.HandleMidcast = function()
 
 	--Elemental Magic Spells
     if spell.Skill == 'Elemental Magic' then
-        if (EleDoTs:contains(spell)) then
+        if (EleDoTs:contains(spell.Name)) then
 			gFunc.EquipSet(sets.EleDots)
 		else
 			gFunc.EquipSet(sets.Nuke);
@@ -304,7 +304,7 @@ function ObiCheck(spell)
 	--Day comparison
 	if string.find(zone.Day, element) then
 		weight = weight + 1
-	elseif string.find(zone.Day, badEle[element]) then
+	elseif string.find(zone.Day, badEle[spell.Element]) then
 		weight = weight - 1
 	end
 	

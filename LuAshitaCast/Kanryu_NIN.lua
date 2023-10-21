@@ -26,20 +26,19 @@ local ninjutsu = {
 
 local sets = {
     Idle_Priority = {
-        Main = '',
-        Sub = '',
-        Ammo = '',
-        Head = '',
-        Ear1 = '',
-        Ear2 = '',
-        Body = '',
-        Hands = '',
-        Ring1 = 'Balance Ring',
-        Ring2 = 'Balance Ring',
-        Back = '',
-        Waist = '',
-        Legs = '',
-        Feet = '',
+        Ammo = 'Happy Egg',
+        Head = 'Emperor Hairpin',
+		Neck = {'Peacock Amulet',},
+        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear2 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Body = {'Scorpion Harness','Jujitsu Gi',},
+        Hands = {'Wonder Mitts',},
+        Ring2 = {'Toreador\'s Ring','Jaeger Ring',},
+        Ring1 = {'Merman\'s Ring','Rajas Ring','Balance Ring',},
+        Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
+        Waist = {'Ryl.Kgt. Belt',},
+        Legs = {'Ryl.Kgt. Breeches','Republic Subligar',},
+        Feet = {'Creek M Clomps','Wonder Clomps',},
     },
 	
 	Resting = {
@@ -47,29 +46,41 @@ local sets = {
 	},
 		
 	TP_Priority = {
-		Main = '',
-        Sub = '',
-        Ammo = '',
-        Head = '',
-        Ear1 = '',
-        Ear2 = '',
-        Body = '',
-        Hands = '',
-        Ring1 = 'Balance Ring',
-        Ring2 = 'Balance Ring',
-        Back = '',
-        Waist = '',
-        Legs = '',
-        Feet = '',
+        Ammo = {'Tiphia Sting',},
+        Head = {'Voyager Sallet','Emperor Hairpin',},
+		Neck = {'Peacock Amulet',},
+        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Body = {'Haubergeon','Scorpion Harness','Jujitsu Gi',},
+        Hands = {'Wonder Mitts','Federation Tekko'},
+        Ring1 = {'Rajas Ring',},
+        Ring2 = {'Toreador\'s Ring','Jaeger Ring',},
+        Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
+        Waist = {'Swift Belt','Ryl.Kgt. Belt',},
+        Legs = {'Koga Hakama','Ryl.Kgt. Breeches','Ryl.Kgt. Breeches','Republic Subligar',},
+        Feet = {'Sarutobi Kyahan','Wonder Clomps',},
     },
 	
 	WS_Priority = {
-		Ring1 = 'Courage Ring',
-        Ring2 = 'Courage Ring',
+        Ammo = {'Bomb Core',},
+        Head = {'Voyager Sallet','Emperor Hairpin',},
+		Neck = {'Spike Necklace',},
+        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Body = {'Haubergeon','Scorpion Harness','Jujitsu Gi',},
+        Hands = {'Wonder Mitts','Federation Tekko'},
+        Ring1 = {'Rajas Ring','Balance Ring',},
+        Ring2 = {'Victory Ring','Courage Ring',},
+        Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
+        Waist = {'Ryl.Kgt. Belt',},
+        Legs = {'Ryl.Kgt. Breeches','Republic Subligar',},
+        Feet = {'Creek M Clomps','Wonder Clomps',},
 	},
 	
 	Enmity_Priority = {
-	
+		Head = {'Arhat\'s Jinpachi',},
+		Body = {'Arhat\'s Gi','Nokizaru Gi',},
+		Waist = 'Astral Rope',
 	},
 	
     Precast_Priority = {
@@ -77,25 +88,28 @@ local sets = {
     },
 	
 	Nuke_Priority = {
-		Main = '',
-        Sub = '',
-        Ammo = '',
+        Ammo = 'Sweet Sachet',
         Head = '',
-        Ear1 = '',
-        Ear2 = '',
-        Body = '',
+		Neck = '',
+        Ear1 = 'Cunning Earring',
+        Ear2 = 'Moldavite Earring',
+        Body = {'Flora Cotehardie','Nokizaru Gi',},
         Hands = '',
         Ring1 = 'Eremite\'s Ring +1',
         Ring2 = 'Eremite\'s Ring +1',
         Back = '',
-        Waist = '',
+        Waist = {'Ryl.Kgt. Belt',},
         Legs = '',
-        Feet = '',
+        Feet = 'Mannequin Pumps',
 	},
 	
 	MAcc_Priority = {
 	
-	}
+	},
+	
+	Utsusemi_Priority = {
+	
+	},
 
     SIRD = {
 	
@@ -170,8 +184,6 @@ end
 profile.HandleAbility = function()
 	local ability = gData.GetAction();
 
-    gFunc.EquipSet(sets.BPDown);
-
     if (ability.Name == 'Provoke') then
         gFunc.EquipSet(sets.Enmity);
     end
@@ -216,12 +228,16 @@ profile.HandleMidcast = function()
 		elseif string.find(spell.Name, 'Hyoton') then
 			gFunc.EquipSet(sets.Nuke);
 		elseif string.find(spell.Name, 'Raiton') then
-			gFunc.EquipSet(sets.Nuke);		
+			gFunc.EquipSet(sets.Nuke);
+		elseif ninjutsu.Enfeebs:contains(spell.Name) then
+			gFunc.EquipSet(sets.MAcc);
+		else
+			gFunc.EquipSet(sets.Idle);
         end
     elseif spell.Skill == 'Elemental Magic' then
         gFunc.EquipSet(sets.Nuke);
 	else
-		gFunc.EquipSet(sets.SIRD);
+		gFunc.EquipSet(sets.Idle);
     end
 	
 end

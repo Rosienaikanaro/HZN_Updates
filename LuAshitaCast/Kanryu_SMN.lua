@@ -34,7 +34,7 @@ local pacts = {
 
 local sets = {
     Idle_Priority = {
-        Main = 'Kukulcan\'s Staff',
+        Main = {'Mercurial Pole','Kukulcan\'s Staff',},
         Sub = '',
         Ammo = '',
         Head = {'Summoner\'s Horn','Evoker\'s Horn','Shep. Bonnet',},
@@ -42,13 +42,13 @@ local sets = {
         Ear1 = 'Merman\'s Earring',
         Ear2 = 'Beastly Earring',
         Body = {'Yinyang Robe','Evoker\'s Doublet','Seer\'s Tunic',},
-        Hands = {'Summoner\'s Brcr.','Evoker\'s Bracers',},
+        Hands = {'Smn. Bracers +1','Evoker\'s Bracers',},
         Ring1 = 'Evoker\'s Ring',
         Ring2 = 'Mermans\'s Ring',
         Back = {'Summoner\'s Cape','Black Cape +1',},
         Waist = 'Hierarch Belt',
-        Legs = 'Evoker\'s Spats',
-        Feet = {'Smn. Pigaches +1','Evoker\'s Pigaches',},
+        Legs = 'Evk. Spats +1',
+        Feet = {'Smn. Pigaches +1',},
     },
 	
     Pet_Idle_Priority = {
@@ -56,23 +56,24 @@ local sets = {
 		Neck = 'Smn. Torque',		
 		Ear2 = 'Beastly Earring',
 		Body = {'Yinyang Robe','Austere Robe',},
-		Hands = {'Summoner\'s Bracers','Evoker\'s Bracers',},
+		Hands = {'Smn. Bracers +1','Evoker\'s Bracers',},
 		Ring1 = 'Evoker\'s Ring',
-		Legs = 'Evoker\'s Spats',
-		Feet = {'Smn. Pigaches +1','Evoker\'s Pigaches',},
+		Legs = 'Evk. Spats +1',
+		Feet = {'Evk. Pigaches +1','Smn. Pigaches +1',},
     },
 	
 	Resting_Priority = {
-		Main = 'Dark Staff',
+		Main = 'Pluto\'s Staff',
 		Neck = 'Checkered Scarf',
+		Ear2 = 'Relaxing Earring',
 		Body = {'Errant Hpl.','Seer\'s Tunic',},
 		Legs = 'Baron\'s Slops',
 	},
 	
-	TP = {
+	TP_Priority = {
 		Neck = 'Peacock Amulet',
-		Ear1 = 'Merman\'s Earring',
-		Ring2 = 'Jaeger Ring',
+		Ear1 = {'Brutal Earring','Merman\'s Earring',},		
+		Ring2 = 'Toreador\'s Ring',
 		Waist = 'Swift Belt',
     },
 	
@@ -80,9 +81,9 @@ local sets = {
 		Head = 'Shep. Bonnet',
 		Ear2 = 'Beastly Earring',	
 		Body = {'Yinyang Robe','Austere Robe',},
-		Hands = 'Summoner\'s Bracers',
-		Legs = 'Evoker\'s Spats',
-		Feet = 'Smn. Pigaches +1',	
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
+		Feet = 'Evk. Pigaches +1',	
     },
 
     Precast = {
@@ -94,7 +95,7 @@ local sets = {
     },
 
     Cure = {
-	
+		Main = 'Apollo\'s Staff',
     },
 	
     Cursna = {
@@ -124,7 +125,7 @@ local sets = {
     BPDown = {
 		Head = {'Summoner\'s Horn',"Austere Hat",},
 		Body = {'Yinyang Robe','Austere Robe',},
-		Hands = 'Summoner\'s Brcr.',
+		Hands = 'Smn. Bracers +1',
 		Feet = 'Smn. Pigaches +1',
     },
     
@@ -136,24 +137,25 @@ local sets = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
 		Ear2 = 'Beastly Earring',
-		Hands = 'Summoner\'s Brcr.',
-		Legs = 'Evoker\'s Spats',
+		Body = {'Yinyang Robe','Austere Robe',},
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
 		Feet = {'Smn. Pigaches +1','Austere Sabots',},	
     },
 	
 	PetMagic_Priority = {
         Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
-		Hands = 'Summoner\'s Brcr.',
-		Legs = 'Evoker\'s Spats',
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
 		Feet = 'Austere Sabots',	
     },
 	
 	PetWard = {
 		Head = {'Evoker\'s Horn','Austere Hat',},
 		Neck = 'Smn. Torque',
-		Hands = 'Summoner\'s Brcr.',
-		Legs = 'Evoker\'s Spats',
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
 		Feet = 'Austere Sabots',
 	},
     
@@ -164,8 +166,8 @@ local sets = {
 	PetMAcc_Priority = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
-		Hands = 'Summoner\'s Brcr.',
-		Legs = 'Evoker\'s Spats',
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
 		Feet = 'Austere Sabots',
     },
 	
@@ -173,8 +175,8 @@ local sets = {
 		Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
 		Ear2 = 'Beastly Earring',
-		Hands = 'Summoner\'s Brcr.',
-		Legs = 'Evoker\'s Spats',
+		Hands = 'Smn. Bracers +1',
+		Legs = 'Evk. Spats +1',
 		Feet = {'Smn. Pigaches +1','Austere Sabots',},	
     },
 	
@@ -195,12 +197,12 @@ local sets = {
 local staves = {
     ['Fire'] = 'Vulcan\'s Staff',
     ['Earth'] = 'Earth Staff',
-    ['Water'] = 'Water Staff',
+    ['Water'] = 'Neptune\'s Staff',
     ['Wind'] = 'Wind Staff',
     ['Ice'] = 'Ice Staff',
     ['Thunder'] = 'Thunder Staff',
-    ['Light'] = 'Light Staff',
-    ['Dark'] = 'Dark Staff'
+    ['Light'] = 'Apollo\'s Staff',
+    ['Dark'] = 'Pluto\'s Staff'
 };
 
 local summons = {
@@ -285,8 +287,7 @@ profile.HandleDefault = function()
 		gFunc.Equip('main', staves[summons[pet.Name]])
 		if pet.Name == 'Carbuncle' then
 			gFunc.Equip('hands', 'Carbuncle Mitts')
-		end
-		if string.match(DotW, summons[pet.Name]) then
+		elseif string.match(DotW, summons[pet.Name]) then
 			gFunc.Equip('body', 'Summoner\'s Dblt.')
 		end
 		if string.match(zone.Weather,summons[pet.Name]) then
@@ -297,8 +298,7 @@ profile.HandleDefault = function()
 		gFunc.Equip('main', staves[summons[pet.Name]])
 		if pet.Name == 'Carbuncle' then
 			gFunc.Equip('hands', 'Carbuncle Mitts')
-		end
-		if string.match(DotW, summons[pet.Name]) then
+		elseif string.match(DotW, summons[pet.Name]) then
 			gFunc.Equip('body', 'Summoner\'s Dblt.')
 		end
 		if string.match(zone.Weather,summons[pet.Name]) then

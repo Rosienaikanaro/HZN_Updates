@@ -19,6 +19,14 @@ local Settings = {
 	MPBodyToggle = false,
 }
 
+local gorgets = {
+
+	Soil = T{'Evisceration'};
+
+	Breeze = T{'Shark Bite', 'Dancing Edge'};
+
+};
+
 local sets = {
     Idle_Priority = {
         Ammo = '',
@@ -47,59 +55,59 @@ local sets = {
 	
 	TH = {
 		Neck = 'Nanaa\'s Charm',
-		--Hands = 'Assassin\'s Armlets',
+		Hands = 'Assassin\'s Armlets',
 	},
 		
 	TP_Priority = {
         Ammo = '',
         Head = {'Panther Mask','Voyager Sallet','Emperor Hairpin',},
 		Neck = {'Love Torque','Peacock Amulet',},
-        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear1 = {'Brutal Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Body = {'Rapparee Harness','Brigandine','Mrc.Cpt. Doublet',}, 
         Hands = {'Dusk Gloves','War Gloves +1','Battle Gloves',},
 		Ring1 = {'Rajas Ring',},  
-		Ring2 = {'Jaeger Ring',},		
+		Ring2 = {'Toreador\'s Ring','Jaeger Ring',},		
         Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
         Waist = {'Swift Belt','Mrc.Cpt. Belt',},
         Legs = {'Dragon Subligar','Republic Subligar',},
-        Feet = {'Assassin\'s Pouln.','Leaping Boots',},
+        Feet = {'Dusk Ledelsens','Leaping Boots',},
     },
 	
 	TA_Accuracy_Priority = {
 		Ammo = '',
         Head = {'Panther Mask','Voyager Sallet','Emperor Hairpin',},
 		Neck = {'Love Torque','Peacock Amulet',},
-        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear1 = {'Brutal Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
-        Body = {'Scorpion Harness','Rapparee Harness','Brigandine','Mrc.Cpt. Doublet',}, 
+        Body = {'Homam Corazza','Scorpion Harness','Rapparee Harness','Brigandine','Mrc.Cpt. Doublet',}, 
         Hands = {'War Gloves +1','Battle Gloves',},
 		Ring1 = {'Rajas Ring',},  
-		Ring2 = {'Jaeger Ring',},		
+		Ring2 = {'Toreador\'s Ring','Jaeger Ring',},		
         Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
         Waist = {'Swift Belt','Mrc.Cpt. Belt',},
         Legs = {'Dragon Subligar','Republic Subligar',},
-        Feet = {'Assassin\'s Pouln.','Leaping Boots',},
+        Feet = {'Dusk Ledelsens','Leaping Boots',},
 	},
 	
 	TP_SA_Priority = {
-		Head = {'Asn. Bonnet +1',},
+		Head = {'Hecatomb Cap',},
 		Neck = {'Love Torque','Spike Necklace',},
 		Ear2 = {'Pixie Earring',},
-		Body = {'Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
-		Hands = {'Rogue\'s Armlets',},
+		Body = {'Dragon Harness','Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
+		Hands = {'Rog. Armlets +1',},
 		Ring2 = {'Thunder Ring','Deft Ring',},
 		Waist = {'Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
 		Legs = {'Dragon Subligar','Noct Brais +1','Republic Subligar',},
 	},
 	
 	TP_TA_Priority = {
-		Head = {'Emperor Hairpin',},
+		Head = {'Hecatomb Cap','Emperor Hairpin',},
 		Neck = {'Love Torque','Spike Necklace',},
 		Ear1 = {'Drone Earring',},
 		Ear2 = {'Drone Earring',},
-		Body = {'Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
-		Hands = {'Mrc.Cpt. Gloves'},
+		Body = {'Dragon Harness','Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
+		Hands = {'Rog. Armlets +1',},
 		Ring1 = {'Breeze Ring',},
 		Ring2 = {'Breeze Ring','Deft Ring',},
 		Back = {'Assassin\'s Cape',},
@@ -108,12 +116,12 @@ local sets = {
 	},
 	
 	TP_SATA_Priority = {
-		Head = {'Emperor Hairpin',},
+		Head = {'Hecatomb Cap',},
 		Neck = {'Love Torque','Spike Necklace',},
 		Ear1 = {'Drone Earring',},
 		Ear2 = {'Pixie Earring','Drone Earring',},
-		Body = {'Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
-		Hands = {'Rogue\'s Armlets','Mrc.Cpt. Gloves'},
+		Body = {'Dragon Harness','Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
+		Hands = {'Rog. Armlets +1','Mrc.Cpt. Gloves',},
 		Ring2 = {'Thunder Ring','Deft Ring',},
 		Back = {'Assassin\'s Cape',},
 		Waist = {'Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
@@ -122,12 +130,12 @@ local sets = {
 	
 	WS_Priority = {
 		Ammo = '',
-        Head = {'Asn. Bonnet +1','Voyager Sallet','Emperor Hairpin',},
+        Head = {'Hecatomb Cap','Voyager Sallet','Emperor Hairpin',},
 		Neck = {'Love Torque','Spike Necklace',},
-        Ear1 = {'Merman\'s Earring','Spike Earring','Beetle Earring +1',},
+        Ear1 = {'Brutal Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Ear2 = {'Pixie Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
-        Body = {'Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
-		Hands = {'Rogue\'s Armlets','Mrc.Cpt. Gloves',},
+        Body = {'Hecatomb Harness','Dragon Harness','Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
+		Hands = {'Rog. Armlets +1','Mrc.Cpt. Gloves',},
         Ring1 = {'Rajas Ring','Balance Ring',},
         Ring2 = {'Thunder Ring','Deft Ring','Balance Ring',},
         Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
@@ -141,9 +149,9 @@ local sets = {
 	},
 	
 	WS_TA_Priority = {
-		Head = {'Emperor Hairpin',},
 		Ear1 = {'Drone Earring',},
 		Ear2 = {'Drone Earring',},
+		Hands = {'Rog. Armlets +1',},
 		Ring1 = {'Breeze Ring',},
 		Ring2 = {'Breeze Ring',},
 		Back = {'Assassin\'s Cape',},
@@ -151,9 +159,9 @@ local sets = {
 	},
 	
 	WS_SATA_Priority = {
-		Head = {'Asn. Bonnet +1','Emperor Hairpin',},
 		Ear1 = {'Drone Earring',},
 		Ear2 = {'Pixie Earring','Drone Earring',},
+		Hands = {'Rog. Armlets +1',},
 		Back = {'Assassin\'s Cape',},
 		Legs = {'Dragon Subligar','Rogue\'s Culottes','Noct Brais +1',},
 	},
@@ -165,9 +173,9 @@ local sets = {
 	Steal = {
         Head = 'Rogue\'s Bonnet',
         Body = 'Rogue\'s Vest',
-        Hands = 'Rogue\'s Armlets',
-        Legs = 'Rogue\'s Culottes',
-        Feet = 'Rogue\'s Poulaines',	
+        Hands = 'Rog. Armlets +1',
+        Legs = 'Assassin\'s Culottes',
+        Feet = 'Rog. Poulaines +1',	
 	},
 	
 	Mug = {
@@ -175,7 +183,7 @@ local sets = {
 	},
 	
 	Flee = {
-		Feet = 'Rogue\'s Poulaines',
+		Feet = 'Rog. Poulaines +1',
 	},
 	
 	Hide = {
@@ -193,13 +201,13 @@ local sets = {
         Ear1 = {'Drone Earring',},
         Ear2 = {'Drone Earring',},
         Body = {'Noct Doublet +1',},
-        Hands = {'Noct Gloves +1',},
-        Ring1 = {'Breeze Ring','Rajas Ring',}, 
-		Ring2 = {'Jaeger Ring',},  
+        Hands = {'Assassin\'s Armlets','Noct Gloves +1',},
+        Ring1 = {'Merman\'s Ring','Rajas Ring',}, 
+		Ring2 = {'Merman\'s Ring','Jaeger Ring',},  
         Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
-        Waist = {'Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
+        Waist = {'Scouter\'s Rope','Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
         Legs = {'Noct Brais +1',},
-        Feet = {'Leaping Boots',},
+        Feet = {'Rog. Poulaines +1','Leaping Boots',},
 	},
 	
 	Sneak = {
@@ -292,7 +300,7 @@ profile.HandleDefault = function()
         gFunc.EquipSet(sets.Resting)
     else
 		if Settings.MPBodyToggle then
-			gFunc.EquipSet(gFunc.Combine(sets.Idle, sets.MP_Body)
+			gFunc.EquipSet(gFunc.Combine(sets.Idle, sets.MP_Body))
 		else
 			gFunc.EquipSet(sets.Idle)
 		end
@@ -346,9 +354,9 @@ profile.HandleMidcast = function()
     local me = gData.GetPlayer().Name
 
     if spell.Skill == 'Ninjutsu' then
-		if string.match(spell.Name, 'Monomi: Ichi') and (target.Name == me) then
+		if string.match(spell.Name, 'Monomi: ') and (target.Name == me) then
             gFunc.EquipSet(sets.Sneak)
-		elseif string.match(spell.Name, 'Tonko: Ichi') and (target.Name == me) then
+		elseif string.match(spell.Name, 'Tonko: ') and (target.Name == me) then
             gFunc.EquipSet(sets.Invisible)
 		else
 			gFunc.EquipSet(sets.Idle)
@@ -388,6 +396,12 @@ profile.HandleWeaponskill = function()
 		gFunc.EquipSet(gFunc.Combine(sets.WS,sets.WS_SA))
 	else
 		gFunc.EquipSet(sets.WS)
+	end
+	
+	if (gorgets.Soil:contains(ws.Name)) then
+		gFunc.Equip('neck','Soil Gorget')
+	elseif gorgets.Breeze:contains(ws.Name) then
+		gFunc.Equip('neck','Breeze Gorget')
 	end
 	
 end
