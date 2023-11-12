@@ -34,7 +34,7 @@ local pacts = {
 
 local sets = {
     Idle_Priority = {
-        Main = {'Mercurial Pole','Kukulcan\'s Staff',},
+        Main = {'Terra\'s Staff','Kukulcan\'s Staff',},
         Sub = '',
         Ammo = '',
         Head = {'Summoner\'s Horn','Evoker\'s Horn','Shep. Bonnet',},
@@ -111,7 +111,7 @@ local sets = {
 	},
 
     SIRD = {
-	
+		Legs = "Summoner's Spats",
 	},
 
     Drain = {
@@ -126,6 +126,7 @@ local sets = {
 		Head = {'Summoner\'s Horn',"Austere Hat",},
 		Body = {'Yinyang Robe','Austere Robe',},
 		Hands = 'Smn. Bracers +1',
+		Legs = "Summoner's Spats",
 		Feet = 'Smn. Pigaches +1',
     },
     
@@ -146,9 +147,10 @@ local sets = {
 	PetMagic_Priority = {
         Head = {'Evoker\'s Horn','Shep. Bonnet',},
 		Neck = 'Smn. Torque',
+		Body = 'Shep. Doublet',
 		Hands = 'Smn. Bracers +1',
 		Legs = 'Evk. Spats +1',
-		Feet = 'Austere Sabots',	
+		Feet = 'Nashira Crackows',	
     },
 	
 	PetWard = {
@@ -156,7 +158,7 @@ local sets = {
 		Neck = 'Smn. Torque',
 		Hands = 'Smn. Bracers +1',
 		Legs = 'Evk. Spats +1',
-		Feet = 'Austere Sabots',
+		Feet = 'Nashira Crackows',
 	},
     
 	PetHealing = {--Avatar HP+
@@ -168,7 +170,7 @@ local sets = {
 		Neck = 'Smn. Torque',
 		Hands = 'Smn. Bracers +1',
 		Legs = 'Evk. Spats +1',
-		Feet = 'Austere Sabots',
+		Feet = 'Nashira Crackows',
     },
 	
     PetHybrid_Priority = {
@@ -196,7 +198,7 @@ local sets = {
 
 local staves = {
     ['Fire'] = 'Vulcan\'s Staff',
-    ['Earth'] = 'Earth Staff',
+    ['Earth'] = 'Terra\'s Staff',
     ['Water'] = 'Neptune\'s Staff',
     ['Wind'] = 'Wind Staff',
     ['Ice'] = 'Ice Staff',
@@ -230,7 +232,8 @@ profile.Sets = sets;
 profile.Packer = {};
 
 local function HandlePetAction(PetAction)
-	local BPName = string.sub(PetAction.Name,1,string.len(PetAction.Name)-1);
+	local BPName = PetAction.Name;
+	
 	if (pacts.Skill:contains(BPName)) then
         gFunc.EquipSet(sets.PetWard);
 	elseif (pacts.Magic:contains(BPName)) then

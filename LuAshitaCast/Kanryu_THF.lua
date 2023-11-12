@@ -21,9 +21,11 @@ local Settings = {
 
 local gorgets = {
 
-	Soil = T{'Evisceration'};
+	Soil = T{--'Evisceration'
+		};
 
-	Breeze = T{'Shark Bite', 'Dancing Edge'};
+	Breeze = T{'Shark Bite', 'Dancing Edge'
+		};
 
 };
 
@@ -38,7 +40,7 @@ local sets = {
         Hands = {'War Gloves +1','Rogue\'s Armlets','Wonder Mitts',},
         Ring1 = {'Breeze Ring','Rajas Ring','Balance Ring',},
         Ring2 = {'Breeze Ring','Deft Ring','Balance Ring',},
-        Back = {'Assassin\'s Cape','Amemet Mantle +1','Traveler\'s Mantle',},
+        Back = {'Boxer\'s Mantle','Amemet Mantle +1','Traveler\'s Mantle',},
         Waist = {'Scouter\'s Rope','Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
         Legs = {'Crow Hose','Rogue\'s Culottes','Noct Brais +1',},
         --Feet = {'Assassin\'s Pouln.','Rogue\'s Poulaines','Wonder Clomps',},
@@ -60,7 +62,7 @@ local sets = {
 		
 	TP_Priority = {
         Ammo = '',
-        Head = {'Panther Mask','Voyager Sallet','Emperor Hairpin',},
+        Head = {'Homam Zucchetto','Panther Mask','Voyager Sallet','Emperor Hairpin',},
 		Neck = {'Love Torque','Peacock Amulet',},
         Ear1 = {'Brutal Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
@@ -76,7 +78,7 @@ local sets = {
 	
 	TA_Accuracy_Priority = {
 		Ammo = '',
-        Head = {'Panther Mask','Voyager Sallet','Emperor Hairpin',},
+        Head = {'Homam Zucchetto','Voyager Sallet','Emperor Hairpin',},
 		Neck = {'Love Torque','Peacock Amulet',},
         Ear1 = {'Brutal Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
         Ear2 = {'Stealth Earring','Merman\'s Earring','Spike Earring','Beetle Earring +1',},
@@ -110,7 +112,6 @@ local sets = {
 		Hands = {'Rog. Armlets +1',},
 		Ring1 = {'Breeze Ring',},
 		Ring2 = {'Breeze Ring','Deft Ring',},
-		Back = {'Assassin\'s Cape',},
 		Waist = {'Scouter\'s Rope','Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
 		Legs = {'Rogue\'s Culottes','Republic Subligar',},
 	},
@@ -123,7 +124,6 @@ local sets = {
 		Body = {'Dragon Harness','Flora Cotehardie','Brigandine','Mrc.Cpt. Doublet',},
 		Hands = {'Rog. Armlets +1','Mrc.Cpt. Gloves',},
 		Ring2 = {'Thunder Ring','Deft Ring',},
-		Back = {'Assassin\'s Cape',},
 		Waist = {'Ryl.Kgt. Belt','Mrc.Cpt. Belt',},
 		Legs = {'Dragon Subligar','Rogue\'s Culottes','Republic Subligar',},
 	},
@@ -154,7 +154,6 @@ local sets = {
 		Hands = {'Rog. Armlets +1',},
 		Ring1 = {'Breeze Ring',},
 		Ring2 = {'Breeze Ring',},
-		Back = {'Assassin\'s Cape',},
 		Legs = {'Rogue\'s Culottes','Noct Brais +1',},
 	},
 	
@@ -162,7 +161,6 @@ local sets = {
 		Ear1 = {'Drone Earring',},
 		Ear2 = {'Pixie Earring','Drone Earring',},
 		Hands = {'Rog. Armlets +1',},
-		Back = {'Assassin\'s Cape',},
 		Legs = {'Dragon Subligar','Rogue\'s Culottes','Noct Brais +1',},
 	},
 	
@@ -367,7 +365,7 @@ profile.HandleMidcast = function()
 		elseif string.match(spell.Name, 'Invisible') and (target.Name == me) then
             gFunc.EquipSet(sets.Invisible);
         end
-    elseif spell.Skill == 'Enfeebling Magic' then
+    elseif spell.Skill == 'Enfeebling Magic' or spell.Skill == 'Elemental Magic' then
         gFunc.EquipSet(gFunc.Combine(sets.Idle,sets.TH))
 	else
 		gFunc.EquipSet(sets.SIRD)

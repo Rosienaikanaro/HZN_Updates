@@ -19,9 +19,11 @@ local Settings = {
 
 local gorgets = {
 
-	Soil = T{'Asuran Fists'};
+	Soil = T{--'Asuran Fists'
+		};
 
-	Breeze = T{'Dragon Kick', 'Raging Fists'};
+	Breeze = T{'Dragon Kick', 'Raging Fists'
+		};
 
 };
 
@@ -107,7 +109,7 @@ local sets = {
         Body = {'Kirin\'s Osode','Scorpion Harness','Jujitsu Gi','Wonder Kaftan','Mrc.Cpt. Doublet','Beetle Harness +1','Bone Harness +1',},
 		Hands = {'Melee Gloves','Temple Gloves','Wonder Mitts','Battle Gloves',},
         Ring1 = {'Rajas Ring','Courage Ring',},
-        Ring2 = {'Flame Ring','Victory Ring','Courage Ring',},
+        Ring2 = {'Triumph Ring','Victory Ring','Courage Ring',},
         Back = {'Amemet Mantle +1','Traveler\'s Mantle',},
         Waist = {'Black Belt','Life Belt','Purple Belt',},
         Legs = {'Shura Haidate','Cmb.Cst. Slacks','Republic Subligar','Bone Subligar +1',},

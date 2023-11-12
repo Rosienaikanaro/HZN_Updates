@@ -283,11 +283,6 @@ end
 function ObiCheck(spell)
 	local element = spell.Element
 	local zone = gData.GetEnvironment()
-	
-	if element == 'Thunder' then
-		element = 'Lightning'
-	end
-	
 	local badEle = {
 		['Fire'] = 'Water',
 		['Earth'] = 'Wind',
@@ -299,12 +294,21 @@ function ObiCheck(spell)
 		['Dark'] = 'Light'
 	};
 	
+	if element == 'Thunder' then
+		element = 'Lightning'
+	end
+	
+	local bad_element = badEle[spell.Element]
+	if bad_element == 'Thunder' then
+		bad_element = 'Lightning'
+	end	
+	
 	local weight = 0
 	
 	--Day comparison
 	if string.find(zone.Day, element) then
 		weight = weight + 1
-	elseif string.find(zone.Day, badEle[spell.Element]) then
+	elseif string.find(zone.Day, bad_element) then
 		weight = weight - 1
 	end
 	
